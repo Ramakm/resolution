@@ -43,7 +43,7 @@ const Landing = ({ onGenerate, error }) => {
                     textTransform: 'uppercase',
                     letterSpacing: '0.05em'
                 }}>
-                    <Sparkles size={16} />
+                    {/* <Sparkles size={16} /> */}
                     <span>Intentional Planning</span>
                 </div>
                 <h1 style={{

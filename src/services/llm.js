@@ -37,7 +37,8 @@ export const generatePlan = async (resolution, provider, apiKey) => {
         }
     } catch (error) {
         console.error("LLM Generation Error:", error);
-        throw new Error("Failed to generate plan. Please check your API key and try again.");
+        // Throw the original error message if available, otherwise fallback to generic
+        throw new Error(error.message || "Failed to generate plan. Please check your API key and try again.");
     }
 };
 
