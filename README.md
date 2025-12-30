@@ -1,16 +1,37 @@
-# React + Vite
+# New Year Resolution Planner
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A premium, minimalist web app that lets you turn a single resolution into a beautifully structured 12‑month calendar plan using your own LLM API key.
 
-Currently, two official plugins are available:
+## Features
+- No sign‑up or login required – just enter your resolution.
+- Choose between Gemini, OpenAI (GPT‑4), or DeepSeek providers.
+- Instant generation of a month‑by‑month plan with themes and actionable items.
+- Elegant vertical scrollable calendar UI with subtle animations.
+- All data stays in memory; your API key is never stored.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tech Stack
+- **Framework**: React + Vite
+- **Styling**: Vanilla CSS with custom design tokens for a calm, premium look.
+- **Animations**: Framer Motion for smooth UI transitions.
+- **Icons**: Lucide‑React.
+- **LLM Integration**: Simple fetch calls to the selected provider using the supplied API key.
 
-## React Compiler
+## Getting Started
+```bash
+# Install dependencies
+npm install
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+# Run the development server
+npm run dev
+```
+Open http://localhost:5173 in your browser.
 
-## Expanding the ESLint configuration
+## Building for Production
+```bash
+npm run build
+```
+The production files will be output to the `dist/` directory.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## License
+MIT – feel free to fork and customize!
+
