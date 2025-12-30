@@ -4,7 +4,7 @@ import { ArrowRight, Sparkles } from 'lucide-react';
 
 const Landing = ({ onGenerate, error }) => {
     const [resolution, setResolution] = useState('');
-    const [provider, setProvider] = useState('gemini');
+    const [provider, setProvider] = useState('gemini:gemini-1.5-flash');
     const [apiKey, setApiKey] = useState('');
     const [loading, setLoading] = useState(false);
 
@@ -111,24 +111,49 @@ const Landing = ({ onGenerate, error }) => {
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                     <div className="input-group">
                         <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: 500 }}>
-                            LLM Provider
+                            Model
                         </label>
-                        <select
-                            value={provider}
-                            onChange={(e) => setProvider(e.target.value)}
-                            style={{
-                                width: '100%',
-                                padding: '0.75rem',
-                                borderRadius: 'var(--radius-md)',
-                                border: '1px solid var(--border-color)',
-                                background: 'var(--surface-color)',
-                                fontSize: '0.95rem'
-                            }}
-                        >
-                            <option value="gemini">Google Gemini</option>
-                            <option value="openai">OpenAI (GPT-4)</option>
-                            <option value="deepseek">DeepSeek</option>
-                        </select>
+                        <div style={{ position: 'relative' }}>
+                            <select
+                                value={provider} // We are using 'provider' state to store the full model string for now, clarifying below
+                                onChange={(e) => setProvider(e.target.value)}
+                                style={{
+                                    width: '100%',
+                                    padding: '0.75rem',
+                                    borderRadius: 'var(--radius-md)',
+                                    border: '1px solid var(--border-color)',
+                                    background: 'var(--surface-color)',
+                                    fontSize: '0.95rem',
+                                    appearance: 'none'
+                                }}
+                            >
+                                <optgroup label="Google Gemini">
+                                    <option value="gemini:gemini-1.5-flash">Gemini 1.5 Flash</option>
+                                    <option value="gemini:gemini-1.5-pro">Gemini 1.5 Pro</option>
+                                    <option value="gemini:gemini-pro">Gemini 1.0 Pro</option>
+                                </optgroup>
+                                <optgroup label="OpenAI">
+                                    <option value="openai:gpt-4o">GPT-4o</option>
+                                    <option value="openai:gpt-4o-mini">GPT-4o Mini</option>
+                                    <option value="openai:gpt-4-turbo">GPT-4 Turbo</option>
+                                    <option value="openai:gpt-3.5-turbo">GPT-3.5 Turbo</option>
+                                </optgroup>
+                                <optgroup label="DeepSeek">
+                                    <option value="deepseek:deepseek-chat">DeepSeek Chat</option>
+                                    <option value="deepseek:deepseek-reasoner">DeepSeek Reasoner</option>
+                                </optgroup>
+                            </select>
+                            <div style={{
+                                position: 'absolute',
+                                right: '1rem',
+                                top: '50%',
+                                transform: 'translateY(-50%)',
+                                pointerEvents: 'none',
+                                color: 'var(--text-secondary)'
+                            }}>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                            </div>
+                        </div>
                     </div>
 
                     <div className="input-group">

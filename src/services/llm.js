@@ -26,14 +26,14 @@ Rules:
 6. RETURN ONLY JSON. NO COMMENTARY.
 `;
 
-export const generatePlan = async (resolution, provider, apiKey) => {
+export const generatePlan = async (resolution, provider, model, apiKey) => {
     try {
         if (provider === 'gemini') {
-            return await callGemini(resolution, apiKey);
+            return await callGemini(resolution, apiKey, model);
         } else if (provider === 'openai') {
-            return await callOpenAI(resolution, apiKey, 'gpt-4o');
+            return await callOpenAI(resolution, apiKey, model);
         } else if (provider === 'deepseek') {
-            return await callDeepSeek(resolution, apiKey);
+            return await callDeepSeek(resolution, apiKey, model);
         }
     } catch (error) {
         console.error("LLM Generation Error:", error);
@@ -48,8 +48,10 @@ const cleanJSON = (text) => {
     return JSON.parse(clean);
 };
 
-const callGemini = async (resolution, key) => {
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`;
+const callGemini = async (resolution, key, model) => {
+    // Default to 1.5-flash if undefined, though it should be passed
+    const modelName = model || 'gemini-1.5-flash';
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${key}`;
 
     const payload = {
         contents: [{
@@ -79,7 +81,7 @@ const callOpenAI = async (resolution, key, model) => {
     const url = 'https://api.openai.com/v1/chat/completions';
 
     const payload = {
-        model: model,
+        model: model || 'gpt-4o',
         messages: [
             { role: "system", content: SYSTEM_PROMPT },
             { role: "user", content: `Resolution: "${resolution}"` }
@@ -105,12 +107,12 @@ const callOpenAI = async (resolution, key, model) => {
     return cleanJSON(data.choices[0].message.content);
 };
 
-const callDeepSeek = async (resolution, key) => {
+const callDeepSeek = async (resolution, key, model) => {
     // DeepSeek is OpenAI compatible
     const url = 'https://api.deepseek.com/chat/completions';
 
     const payload = {
-        model: "deepseek-chat",
+        model: model || "deepseek-chat",
         messages: [
             { role: "system", content: SYSTEM_PROMPT },
             { role: "user", content: `Resolution: "${resolution}"` }

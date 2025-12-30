@@ -12,7 +12,9 @@ function App() {
     setIsGenerating(true);
     setError(null);
     try {
-      const result = await generatePlan(resolution, provider, apiKey);
+      // provider comes in as "providerName:modelName"
+      const [providerName, modelName] = provider.split(':');
+      const result = await generatePlan(resolution, providerName, modelName, apiKey);
       setPlan(result);
     } catch (err) {
       setError(err.message);
